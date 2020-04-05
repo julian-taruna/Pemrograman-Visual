@@ -8,7 +8,7 @@ const {
 } = electron ;
 
 let todayWindow;
-let creteWindow;
+let createWindow;
 let listWindow;
 
 let allAppointment = [];
@@ -18,7 +18,7 @@ app.on("ready", ()=> {
         webPreferences: {
             nodeIntegration: true
         },
-        title : "Aplikasi Dokter"
+        title : "Aplikasi JC"
     });
 
     todayWindow.loadURL(`file://${__dirname}/today.html`);
@@ -69,13 +69,13 @@ ipcMain.on("appointment:create", (event, appointment) => {
 
     createWindow.close();
 
-    console.log(allAppointment);
+    console.log(allAppointment); 
 
     console.log(appointment);
 });
 
 ipcMain.on("appointment:request:list", event  => {
-    console.log("here");
+    listWindow.webContents.send('appointment:response:list', allAppointment);
 });
 
 ipcMain.on("appointment:request:today", event  => {
@@ -90,14 +90,14 @@ ipcMain.on("appointment:doe", (event, id) => {
 const menuTemplate = [{
         label: "File",
         submenu: [{
-                label: "Aplikasi Baru",
+                label: "New Appointment",
                 
                 click() {
                     createWindowCreator();
                 }
             },
             {
-                label: "Semua Aplikasi",
+                label: "List Apointment",
                 click() {
                     listWindowCreator();
                 }
