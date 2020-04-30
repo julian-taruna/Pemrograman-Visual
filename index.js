@@ -83,7 +83,11 @@ ipcMain.on("appointment:request:today", event  => {
 });
 
 ipcMain.on("appointment:done", (event, id) => {
-    console.log("here3")
+    allAppointment.forEach((appointment) => {
+        appointment.done = 1
+    })
+
+    sendTodayAppointments()
 });
 
 
